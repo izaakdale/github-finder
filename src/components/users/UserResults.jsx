@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import LoadingIcon from '../shared/LoadingIcon'
+import UserItem from './UserItem'
 
 function UserResults() {
     const [users, setUsers] = useState([])
@@ -32,7 +33,7 @@ function UserResults() {
     return (
         <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
             {users.map((user) => (
-                <h3 className="">{user.login}</h3>
+                <UserItem key={user.id} user={user}/>
             ))}
         </div>
     )
