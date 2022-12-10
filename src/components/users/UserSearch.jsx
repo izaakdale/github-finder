@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState, useContext } from 'react'
 import GithubContext from '../../context/github/GithubContext'
+import AlertContext from '../../context/alert/AlertContext'
 
 function UserSearch() {
     const [text, setText] = useState('')
 
     const {users, searchUsers, clearUsers} = useContext(GithubContext)
+    const {setAlert} = useContext(AlertContext)
 
     const handleChange = (e) => {
         setText(e.target.value)
@@ -14,7 +16,7 @@ function UserSearch() {
         e.preventDefault()
 
         if (text === '') {
-            alert('please enter something')
+            setAlert('please enter something', 'error')
         } else {
             searchUsers(text)
         }
@@ -35,7 +37,9 @@ function UserSearch() {
                                 onChange={handleChange}
                             />
                             <button
-                                disabled={text === ''}
+                                // disables text if there is no entry, personally think this is better 
+                                // than the tutorial but for alert purposes i will keep it commented
+                                // disabled={text === ''}
                                 type='submit' 
                                 className='absolute top-0 right-0 rounded-l-none w-36 btn btn-lg'
                             >
