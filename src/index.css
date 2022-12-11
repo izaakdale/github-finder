@@ -12,6 +12,11 @@ code {
     monospace;
 } */
 
+.custom-card-image .card.image-full:before {
+  border-radius: 0.5rem;
+  opacity: 0.45;
+}
+
 
 .centered-loading {
   display: flex;
