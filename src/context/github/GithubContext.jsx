@@ -10,6 +10,7 @@ export const GithubProvider = ({children}) => {
     const initialState = {
         user: {},
         users: [],
+        repos: [],
         loading: false,
     }
 
@@ -52,6 +53,32 @@ export const GithubProvider = ({children}) => {
         setLoading(false)
     }
 
+    const getUserRepos = async (login) => {
+        setLoading(true)
+
+        const params = new URLSearchParams({
+            sort: 'created',
+            per_page: 10,
+        })
+
+        const response = await fetch(`${gitUrl}/users/${login}/repos?${params}`, {
+            headers: {
+                Authorization: `Bearer ${gitToken}`
+            }
+        })
+
+        if (response.status === 404) {
+            window.location = '/notfound'
+        } else {
+            const data = await response.json()
+            dispatch({
+                type: 'GET_USER_REPOS',
+                payload: data,
+            })
+        }
+        setLoading(false)
+
+    }
 
     const setLoading = (loading) => {
         dispatch({
@@ -69,10 +96,13 @@ export const GithubProvider = ({children}) => {
     return <GithubContext.Provider value={{ 
         user:state.user, 
         users: state.users, 
-        loading: state.loading, 
+        loading: state.loading,
+        repos: state.repos,
         searchUsers, 
         clearUsers, 
-        getUser }}
+        getUser,
+        getUserRepos,
+    }}
     >
         {children}
     </GithubContext.Provider>
