@@ -12,7 +12,7 @@ function UserItem({user: {login, avatar_url}}) {
             </div>
             <div className="">
                 <h2 className="card-title">{login}</h2>
-                <a href={`https://github.com/${login}`} className="text-base-content text-opacity-40">visit profile</a>
+                <a href={`/user/${login}`} className="text-base-content text-opacity-40">visit profile</a>
             </div>
         </div>
     </div>
