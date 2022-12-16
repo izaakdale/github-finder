@@ -6,14 +6,28 @@ import { FaCodepen, FaStore, FaTwitter, FaUserFriends, FaUsers } from 'react-ico
 import { Link } from 'react-router-dom'
 import LoadingIcon from '../components/shared/LoadingIcon'
 import RepoList from '../components/repos/RepoList'
+import { getUser, getUserRepos } from '../context/github/GithubActions'
 
 function User() {
-    const {getUser, user, loading, getUserRepos, repos} = useContext(GithubContext)
+    const {user, loading, repos, setLoading, dispatch} = useContext(GithubContext)
     const params = useParams()
 
     useEffect(() =>{
-        getUser(params.login)
-        getUserRepos(params.login)
+        setLoading(true)
+        const getUserData = async () => {
+            const userData = await getUser(params.login)
+            dispatch({
+                type: 'GET_USER',
+                payload: userData,
+            })
+            const repoData = await getUserRepos(params.login)
+            dispatch({
+                type: 'GET_USER_REPOS',
+                payload: repoData,
+            })
+        }
+        getUserData()
+        setLoading(false)
     }, [])
 
     const {
@@ -35,7 +49,9 @@ function User() {
 
     if (loading) {
         return (
-            <LoadingIcon/>
+            <div className="hero">
+                <LoadingIcon size={'50'}/>
+            </div>
         )
     }
 
