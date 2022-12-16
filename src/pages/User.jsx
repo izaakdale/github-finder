@@ -6,7 +6,7 @@ import { FaCodepen, FaStore, FaTwitter, FaUserFriends, FaUsers } from 'react-ico
 import { Link } from 'react-router-dom'
 import LoadingIcon from '../components/shared/LoadingIcon'
 import RepoList from '../components/repos/RepoList'
-import { getUser, getUserRepos } from '../context/github/GithubActions'
+import { getUserAndRepos } from '../context/github/GithubActions'
 
 function User() {
     const {user, loading, repos, setLoading, dispatch} = useContext(GithubContext)
@@ -15,15 +15,10 @@ function User() {
     useEffect(() =>{
         setLoading(true)
         const getUserData = async () => {
-            const userData = await getUser(params.login)
+            const userData = await getUserAndRepos(params.login)
             dispatch({
-                type: 'GET_USER',
+                type: 'GET_USER_AND_REPOS',
                 payload: userData,
-            })
-            const repoData = await getUserRepos(params.login)
-            dispatch({
-                type: 'GET_USER_REPOS',
-                payload: repoData,
             })
         }
         getUserData()
