@@ -28,7 +28,7 @@ function User() {
         }
         getUserData()
         setLoading(false)
-    }, [])
+    }, [params.login, dispatch, setLoading])
 
     const {
         name,
@@ -44,7 +44,6 @@ function User() {
         following,
         public_repos,
         public_gists,
-        hireable,
     } = user
 
     if (loading) {

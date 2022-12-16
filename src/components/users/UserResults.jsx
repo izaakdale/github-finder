@@ -1,5 +1,5 @@
 import React from 'react'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import LoadingIcon from '../shared/LoadingIcon'
 import UserItem from './UserItem'
 import GithubContext from '../../context/github/GithubContext'

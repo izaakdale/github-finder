@@ -24,10 +24,6 @@ export const GithubProvider = ({children}) => {
         ...state,
         dispatch,
         setLoading,
-        // searchUsers, 
-        // clearUsers, 
-        // getUser,
-        // getUserRepos,
     }}
     >
         {children}
