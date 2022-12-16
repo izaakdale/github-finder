@@ -10,7 +10,7 @@ const github = axios.create({
 })
 
 export const searchUsers = async (text) => {
-    const repsponse = await github.get(`/search/users?${text}`)
+    const repsponse = await github.get(`/search/users?q=${text}`)
     return repsponse.data.items
 }
 
